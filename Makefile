@@ -1,0 +1,47 @@
+#MAKEFLAGS += --silent
+
+NAME = push_swap
+CC = gcc
+CFLAGS = -Wall -Wextra -g #-Werror -Wpedantic 
+INC_DIR = includes/
+INC = push_swap.h
+
+SRC_DIR = ./
+SRC = 	push_swap.c
+
+LIBRARY_DIR = ./
+
+LIBFT_DIR = $(LIBRARY_DIR)libft/
+LIBFT_INC_DIR = $(LIBFT_DIR)includes/
+LIBFT_INC = -I $(LIBFT_INC_DIR) $(LIBFT_DIR)libft.a
+
+OBJ_DIR = .obj/
+OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
+
+.PHONY : all clean fclean re $(LIBFT_DIR)
+
+all: $(LIBFT_DIR) $(NAME) 
+
+$(NAME): $(OBJ) $(LIBFT_DIR)libft.a
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_INC) -I $(INC_DIR) -lm
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(INC_DIR),$(INC))
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(LIBFT_INC_DIR) -I $(INC_DIR)
+
+$(LIBFT_DIR):
+	$(MAKE) -C $(LIBFT_DIR)
+
+norm:
+	norminette $(SRC_DIR)$(SRC) $(INC_DIR)$(INC)
+
+clean:
+	/bin/rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+
+fclean: clean
+	/bin/rm -f $(NAME)
+
+re: 
+	$(MAKE) fclean
+	$(MAKE) all

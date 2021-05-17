@@ -16,15 +16,63 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	push_swap(long *a, int *b)
+void	print_stacks(long *a, long *b)
 {
 	int i = 0;
 
-	while (a[i])
+	printf("\n|------------------------------------------|\n");
+	printf("| a -> ");
+	if (a)
 	{
-		printf("%d ", a[i]);
-		i++;
+		while (a[i])
+		{
+			printf("%d ", a[i]);
+			i++;
+		}
 	}
+	else
+		printf("NULL");
+	printf("\n| b -> ");
+	if (b)
+	{
+		while (b[i])
+		{
+			printf("%d ", b[i]);
+			i++;
+		}
+	}
+	else
+		printf("NULL");
+	printf("\n|------------------------------------------|\n\n");
+}
+
+//swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements)
+void	sa(long *a)
+{
+	ft_swap(&a[0], &a[1]);
+}
+// swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements).
+void	sb(long *b)
+{
+	ft_swap(&b[0], &b[1]);
+}
+// sa and sb at the same time.
+void	ss(long *a, long *b)
+{
+	sa(a);
+	sb(b);
+}
+//  push a - take the first element at the top of b and put it at the top of a. Do nothing if b is empty.
+void	pa(long *a; long *b)
+{
+	
+}
+
+void	push_swap(long *a, long *b)
+{
+	print_stacks(a, b);
+	sa(a);
+	print_stacks(a, b);
 }
 
 int	init_list(char **list, long *stack_a, int size)
@@ -47,15 +95,17 @@ int	main(int argc, char **argv)
 
 	if (argc >= 2)
 	{
+		argc--;
 		stack_a = malloc(sizeof(int) * argc);
 		if (stack_a)
 		{
-			if (init_list(argv, stack_a, argc - 1))
+			if (init_list(argv, stack_a, argc))
 			{
 				printf("init!\n#####################\n");
 				push_swap(stack_a, NULL);
 				return (1);
 			}
+			free(a);
 		}
 	}
 	printf("Error\n");

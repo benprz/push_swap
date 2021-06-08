@@ -12,9 +12,15 @@
 
 #include "push_swap.h"
 
+// 3 2 1
+
 void	push_swap(t_stack *a, t_stack *b)
 {
-	pb(a, b);
+	(void)a;
+	(void)b;
+	ra(a);
 	sa(a);
-	pa(a, b);
+	rra(a);
+	rra(a);
+	checker(a, b);
 }

@@ -162,6 +162,23 @@ int	init_stacks(char **list, t_stack *a, int size)
 	return (1);
 }
 
+int	checker(t_stack *a, t_stack *b)
+{
+	int i;
+
+	i = a->size;
+	while (--i)
+	{
+		if (a->stack[i] > a->stack[i - 1])
+		{
+			printf("\nFailed !\n");
+			return (-1);
+		}
+	}
+	printf("\nSuccess !\n");
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack a;

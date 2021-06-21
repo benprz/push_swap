@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
+/*   Updated: 2021/06/21 19:11:31 by bperez           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	print_stacks(t_stack *a, t_stack *b)
@@ -162,7 +174,7 @@ int	init_stacks(char **list, t_stack *a, int size)
 	return (1);
 }
 
-int	checker(t_stack *a, t_stack *b)
+int	checker(t_stack *a)
 {
 	int i;
 
@@ -171,11 +183,11 @@ int	checker(t_stack *a, t_stack *b)
 	{
 		if (a->stack[i] > a->stack[i - 1])
 		{
-			printf("\nFailed !\n");
+			//printf("\nFailed !\n");
 			return (-1);
 		}
 	}
-	printf("\nSuccess !\n");
+	//printf("\nSuccess !\n");
 	return (0);
 }
 

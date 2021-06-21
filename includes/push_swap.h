@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 17:13:57 by bperez            #+#    #+#             */
-/*   Updated: 2021/05/12 17:15:10 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/06/21 15:53:32 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_stack
 } t_stack;
 
 void	push_swap(t_stack *a, t_stack *b);
-int		checker(t_stack *a, t_stack *b);
+int		checker(t_stack *a);
 int		init_stacks(char **list, t_stack *a, int size);
 void	print_stacks(t_stack *a, t_stack *b);
 void	sa(t_stack *a);

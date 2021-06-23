@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/06/21 19:11:31 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 20:43:16 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,17 +160,50 @@ void	rrr(t_stack *a, t_stack *b)
 	rrb(b);
 }
 
+void	convert_stack(t_stack *a, long *tmp_stack)
+{
+	int		i;
+	int		j;
+	int		tmp;
+	int		old_tmp;
+
+	i = a->size;
+	tmp = 0;
+	while (i--)
+	{
+		j = a->size;
+		while (--j)
+		{
+			if (tmp_stack[j] > tmp_stack[tmp] && tmp_stack[tmp] < tmp_stack[old_tmp])
+				tmp = j;
+		}
+		a->stack[tmp] = i;
+		old_tmp = tmp;
+		tmp = 0;
+	}
+	free(tmp_stack);
+}
+
 int	init_stacks(char **list, t_stack *a, int size)
 {
+	long	*tmp_stack;
+
 	a->size = size;
+	tmp_stack = malloc(sizeof(long) * a->size);
+	if (!tmp_stack)
+		return (0);
 	while (size--)
 	{
 	//	if (!ft_is_number(list[size + 1]))
 	//		return (0);
-		a->stack[size] = atol(list[a->size - size]);
-		if (a->stack[size] < INT_MIN || a->stack[size] > INT_MAX)
+		tmp_stack[size] = atol(list[a->size - size]);
+		if (tmp_stack[size] < INT_MIN || tmp_stack[size] > INT_MAX)
+		{
+			free(tmp_stack);
 			return (0);
+		}
 	}
+	convert_stack(a, tmp_stack);
 	return (1);
 }
 

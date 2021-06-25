@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/06/23 20:43:16 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/06/25 20:02:21 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	rrr(t_stack *a, t_stack *b)
 	rrb(b);
 }
 
-void	convert_stack(t_stack *a, long *tmp_stack)
+int	convert_stack(t_stack *a, long *tmp_stack)
 {
 	int		i;
 	int		j;
@@ -168,20 +168,24 @@ void	convert_stack(t_stack *a, long *tmp_stack)
 	int		old_tmp;
 
 	i = a->size;
-	tmp = 0;
+	old_tmp = -1;
 	while (i--)
 	{
 		j = a->size;
-		while (--j)
+		tmp = -1;
+		while (j--)
 		{
-			if (tmp_stack[j] > tmp_stack[tmp] && tmp_stack[tmp] < tmp_stack[old_tmp])
-				tmp = j;
+			if (old_tmp == -1 || tmp_stack[j] < tmp_stack[old_tmp])
+				if (tmp == -1 || tmp_stack[j] > tmp_stack[tmp])
+						tmp = j;
 		}
+		if (tmp == -1)
+			return (-1);
 		a->stack[tmp] = i;
 		old_tmp = tmp;
-		tmp = 0;
 	}
 	free(tmp_stack);
+	return (0);
 }
 
 int	init_stacks(char **list, t_stack *a, int size)
@@ -203,7 +207,8 @@ int	init_stacks(char **list, t_stack *a, int size)
 			return (0);
 		}
 	}
-	convert_stack(a, tmp_stack);
+	if (convert_stack(a, tmp_stack) == -1)
+		return (0);
 	return (1);
 }
 

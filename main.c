@@ -193,6 +193,7 @@ int	init_stacks(char **list, t_stack *a, int size)
 	long	*tmp_stack;
 
 	a->size = size;
+	a->block_size = a->size / 5;
 	tmp_stack = malloc(sizeof(long) * a->size);
 	if (!tmp_stack)
 		return (0);

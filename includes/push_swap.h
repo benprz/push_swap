@@ -24,6 +24,7 @@ typedef struct s_stack
 	long *stack;
 	int start;
 	int size;
+	int	block_size;
 } t_stack;
 
 void	push_swap(t_stack *a, t_stack *b);

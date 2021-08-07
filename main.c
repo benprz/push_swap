@@ -160,59 +160,6 @@ void	rrr(t_stack *a, t_stack *b)
 	rrb(b);
 }
 
-int	convert_stack(t_stack *a, long *tmp_stack)
-{
-	int		i;
-	int		j;
-	int		tmp;
-	int		old_tmp;
-
-	i = a->size;
-	old_tmp = -1;
-	while (i--)
-	{
-		j = a->size;
-		tmp = -1;
-		while (j--)
-		{
-			if (old_tmp == -1 || tmp_stack[j] < tmp_stack[old_tmp])
-				if (tmp == -1 || tmp_stack[j] > tmp_stack[tmp])
-						tmp = j;
-		}
-		if (tmp == -1)
-			return (-1);
-		a->stack[tmp] = i;
-		old_tmp = tmp;
-	}
-	free(tmp_stack);
-	return (0);
-}
-
-int	init_stacks(char **list, t_stack *a, int size)
-{
-	long	*tmp_stack;
-
-	a->size = size;
-	a->block_size = a->size / 5;
-	tmp_stack = malloc(sizeof(long) * a->size);
-	if (!tmp_stack)
-		return (0);
-	while (size--)
-	{
-	//	if (!ft_is_number(list[size + 1]))
-	//		return (0);
-		tmp_stack[size] = atol(list[a->size - size]);
-		if (tmp_stack[size] < INT_MIN || tmp_stack[size] > INT_MAX)
-		{
-			free(tmp_stack);
-			return (0);
-		}
-	}
-	if (convert_stack(a, tmp_stack) == -1)
-		return (0);
-	return (1);
-}
-
 int	checker(t_stack *a)
 {
 	int i;
@@ -230,6 +177,81 @@ int	checker(t_stack *a)
 	return (0);
 }
 
+int	convert_stack(t_stack *a, long *tmp_stack)
+{
+	int		i;
+	int		j;
+	int		tmp;
+	int		old_tmp;
+
+	i = 0;
+	old_tmp = -1;
+	while (i < a->size)
+	{
+		j = 0;
+		tmp = -1;
+		while (j < a->size)
+		{
+			if (old_tmp == -1 || tmp_stack[j] > tmp_stack[old_tmp])
+				if (tmp == -1 || tmp_stack[j] < tmp_stack[tmp])
+					tmp = j;
+			j++;
+		}
+		if (tmp == -1)
+			return (-1);
+		a->stack[tmp] = i;
+		old_tmp = tmp;
+		i++;
+	}
+	free(tmp_stack);
+	return (0);
+}
+
+int	init_stack(char **list, long *tmp_stack, t_stack *a)
+{
+	int	i;
+
+	i = 0;
+	while (i < a->size)
+	{
+	//	if (!ft_is_number(list[i]))
+	//		return (0);
+		tmp_stack[i] = atol(list[i]);
+		if (tmp_stack[i] < INT_MIN || tmp_stack[i] > INT_MAX)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
+{
+	long	*tmp_stack;
+
+	ft_bzero(a, sizeof(t_stack));
+	ft_bzero(b, sizeof(t_stack));
+	a->stack = malloc(sizeof(long) * size);
+	b->stack = malloc(sizeof(long) * size);
+	if (a->stack && b->stack)
+	{
+		tmp_stack = malloc(sizeof(long) * size);
+		if (tmp_stack)
+		{
+			a->size = size;
+			a->block_size = a->size / 5;
+			if (!init_stack(list, tmp_stack, a))
+			{
+				if (!convert_stack(a, tmp_stack))
+					return (0);
+			}
+			free(tmp_stack);
+		}
+		free(a->stack);
+		free(b->stack);
+	}
+	return (-1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack a;
@@ -239,21 +261,12 @@ int	main(int argc, char **argv)
 	error = 1;
 	if (argc-- >= 2)
 	{
-		ft_bzero(&a, sizeof(t_stack));
-		ft_bzero(&b, sizeof(t_stack));
-		a.stack = malloc(sizeof(long) * argc);
-		b.stack = malloc(sizeof(long) * argc);
-		if (a.stack && b.stack)
+		if (!init_stacks(argv, &a, &b, argc))
 		{
-			if (init_stacks(argv, &a, argc))
-			{
-				print_stacks(&a, &b);
-				push_swap(&a, &b);
-				print_stacks(&a, &b);
-				error = 0;
-			}
-			free(a.stack);
-			free(b.stack);
+			print_stacks(&a, &b);
+			//push_swap(&a, &b);
+			print_stacks(&a, &b);
+			error = 0;
 		}
 	}
 	if (error)

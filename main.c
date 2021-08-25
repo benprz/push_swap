@@ -47,14 +47,14 @@ void	print_stacks(t_stack *a, t_stack *b)
 void	sa(t_stack *a)
 {
 	if (a->size > 1)
-		ft_swap(&a->stack[a->size - 1], &a->stack[a->size - 2]);
+		ft_swap(&a->stack[0], &a->stack[1]);
 	ft_putendl("sa");
 }
 //swap the first 2 elements at the top of a stack. Do nothing if there is only one or no elements)
 void	sb(t_stack *b)
 {
 	if (b->size > 1)
-		ft_swap(&b->stack[b->size - 1], &b->stack[b->size - 2]);
+		ft_swap(&b->stack[0], &b->stack[1]);
 	ft_putendl("sb");
 }
 // sa and sb at the same time.
@@ -66,9 +66,22 @@ void	ss(t_stack *a, t_stack *b)
 // push a - take the first element at the top of b and put it at the top of a. Do nothing if a is empty.
 void	pa(t_stack *a, t_stack *b)
 {
+	int	i;
+	int tmp;
+	int tmp2;
+
 	if (b->size)
 	{
-		a->stack[a->size] = b->stack[--b->size];
+		i = 1;
+		tmp = a->stack[0];
+		a->stack[0] = b->stack[0];
+		while (i < a->size)
+		{
+			tmp2 = a->stack[i];
+			a->stack[i] = tmp;
+			tmp 
+			i++;
+		}
 		a->size++;
 	}
 	ft_putendl("pa");
@@ -261,7 +274,7 @@ int	main(int argc, char **argv)
 	error = 1;
 	if (argc-- >= 2)
 	{
-		if (!init_stacks(argv, &a, &b, argc))
+		if (!init_stacks(++argv, &a, &b, argc))
 		{
 			print_stacks(&a, &b);
 			//push_swap(&a, &b);

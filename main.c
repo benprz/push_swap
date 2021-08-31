@@ -14,32 +14,19 @@
 
 void	print_stacks(t_stack *a, t_stack *b)
 {
-	int i = 0;
+	//for (int j = 0; j < a->size; j++)
+		//printf("%d\n", a->stack[j]);
+	int i;
 
+	i = a->size;
 	printf("\n|------------------------------------------|\n");
 	printf("| a -> ");
-	if (a->size)
-	{
-		while (i < a->size)
-		{
-			printf("%ld ", a->stack[i]);
-			i++;
-		}
-	}
-	else
-		printf("NULL");
-	i = 0;
+	while (i--)
+		printf("%ld ", a->stack[i]);
+	i = b->size;
 	printf("\n| b -> ");
-	if (b->size)
-	{
-		while (i < b->size)
-		{
-			printf("%ld ", b->stack[i]);
-			i++;
-		}
-	}
-	else
-		printf("NULL");
+	while (i--)
+		printf("%ld ", b->stack[i]);
 	printf("\n|------------------------------------------|\n\n");
 }
 
@@ -188,46 +175,49 @@ int	convert_stack(t_stack *a, long *tmp_stack)
 	return (0);
 }
 
-int	init_stacks(char **list, t_stack *a, int size)
+int	init_stack(char **list, long *tmp_stack, t_stack *a)
+{
+	int	i;
+
+	i = 0;
+	while (i < a->size)
+	{
+	//	if (!ft_is_number(list[i]))
+	//		return (0);
+		tmp_stack[i] = atol(list[a->size - i]);
+		if (tmp_stack[i] < INT_MIN || tmp_stack[i] > INT_MAX)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 {
 	long	*tmp_stack;
 
-	a->size = size;
-	a->block_size = a->size / 5;
-	tmp_stack = malloc(sizeof(long) * a->size);
-	if (!tmp_stack)
-		return (0);
-	while (size--)
+	ft_bzero(a, sizeof(t_stack));
+	ft_bzero(b, sizeof(t_stack));
+	a->stack = malloc(sizeof(long) * size);
+	b->stack = malloc(sizeof(long) * size);
+	if (a->stack && b->stack)
 	{
-	//	if (!ft_is_number(list[size + 1]))
-	//		return (0);
-		tmp_stack[size] = atol(list[a->size - size]);
-		if (tmp_stack[size] < INT_MIN || tmp_stack[size] > INT_MAX)
+		tmp_stack = malloc(sizeof(long) * size);
+		if (tmp_stack)
 		{
+			a->size = size;
+			a->block_size = a->size / 5;
+			if (!init_stack(list, tmp_stack, a))
+			{
+				if (!convert_stack(a, tmp_stack))
+					return (0);
+			}
 			free(tmp_stack);
-			return (0);
 		}
+		free(a->stack);
+		free(b->stack);
 	}
-	if (convert_stack(a, tmp_stack) == -1)
-		return (0);
-	return (1);
-}
-
-int	checker(t_stack *a)
-{
-	int i;
-
-	i = a->size;
-	while (--i)
-	{
-		if (a->stack[i] > a->stack[i - 1])
-		{
-			//printf("\nFailed !\n");
-			return (-1);
-		}
-	}
-	//printf("\nSuccess !\n");
-	return (0);
+	return (-1);
 }
 
 int	main(int argc, char **argv)
@@ -239,21 +229,12 @@ int	main(int argc, char **argv)
 	error = 1;
 	if (argc-- >= 2)
 	{
-		ft_bzero(&a, sizeof(t_stack));
-		ft_bzero(&b, sizeof(t_stack));
-		a.stack = malloc(sizeof(long) * argc);
-		b.stack = malloc(sizeof(long) * argc);
-		if (a.stack && b.stack)
+		if (!init_stacks(argv, &a, &b, argc))
 		{
-			if (init_stacks(argv, &a, argc))
-			{
-				print_stacks(&a, &b);
-				push_swap(&a, &b);
-				print_stacks(&a, &b);
-				error = 0;
-			}
-			free(a.stack);
-			free(b.stack);
+			print_stacks(&a, &b);
+			push_swap(&a, &b);
+			print_stacks(&a, &b);
+			error = 0;
 		}
 	}
 	if (error)

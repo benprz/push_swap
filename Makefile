@@ -2,7 +2,7 @@ MAKEFLAGS += --silent
 
 NAME = push_swap
 CC = gcc
-CFLAGS = -Wall -Wextra -g #-Werror -Wpedantic 
+CFLAGS = -g #-Wall -Wextra #-Werror -Wpedantic 
 INC_DIR = includes/
 INC = push_swap.h
 

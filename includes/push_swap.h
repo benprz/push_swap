@@ -29,7 +29,7 @@ typedef struct s_stack
 
 void	push_swap(t_stack *a, t_stack *b);
 int		checker(t_stack *a);
-int		init_stacks(char **list, t_stack *a, int size);
+int		init_stacks(char **list, t_stack *a, t_stack *b, int size);
 void	print_stacks(t_stack *a, t_stack *b);
 void	sa(t_stack *a);
 void	sb(t_stack *b);

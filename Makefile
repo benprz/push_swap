@@ -19,7 +19,7 @@ LIBFT_INC = -I $(LIBFT_INC_DIR) $(LIBFT_DIR)libft.a
 OBJ_DIR = .obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
 
-ARGS =  3 2 6 8 10 7 9 1 0
+ARGS = 8 2 1 18272 62 71 9 29 87 65 10 27 872 762 12 37 28 198 26 73 88
 
 .PHONY : all clean fclean re $(LIBFT_DIR) exec
 

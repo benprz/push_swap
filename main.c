@@ -206,7 +206,7 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 		if (tmp_stack)
 		{
 			a->size = size;
-			a->block_size = a->size / 5;
+			a->block_size = a->size / 2;
 			if (!init_stack(list, tmp_stack, a))
 			{
 				if (!convert_stack(a, tmp_stack))

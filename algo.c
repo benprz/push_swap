@@ -14,7 +14,7 @@
 
 // 3 2 1
 
-int	checker_b(t_stack *a)
+int	checker(t_stack *a)
 {
 	int i;
 
@@ -22,10 +22,7 @@ int	checker_b(t_stack *a)
 	while (--i)
 	{
 		if (a->stack[i] > a->stack[i - 1])
-		{
-			printf("\nFailed !\n");
 			return (-1);
-		}
 	}
 	printf("\nSuccess !\n");
 	return (0);
@@ -74,7 +71,35 @@ void	push_b(t_stack *a, t_stack *b, int ra_gap, int rra_gap)
 	pb(a, b);
 }
 
-void	push_swap(t_stack *a, t_stack *b)
+/*
+1 0 2
+1 2 0
+0 2 1
+2 1 0
+2 0 1
+*/
+
+void	sort_three(t_stack *a, t_stack *b)
+{
+	if (a->stack[1] < a->stack[2] && a->stack[0] > a->stack[2])
+		sa(a);
+	else if (a->stack[1] > a->stack[2] && a->stack[0] < a->stack[2])
+		rra(a);
+	else if (a->stack[1] > a->stack[2] && a->stack[1] > a->stack[2])
+	{
+		rra(a);
+		sa(a);
+	}
+	else if (a->stack[2] > a->stack[1] && a->stack[0] < a->stack[1])
+	{
+		ra(a);
+		sa(a);
+	}
+	else if (a->stack[2] > a->stack[0] && a->stack[1] < a->stack[0])
+		ra(a);
+}
+
+void	sort_more(t_stack *a, t_stack *b)
 {
 	int ra_gap;
 	int rra_gap;
@@ -100,5 +125,20 @@ void	push_swap(t_stack *a, t_stack *b)
 			current_block += a->block_size;
 	}
 	push_a(a, b);
-	checker_b(a);
+}
+
+void	push_swap(t_stack *a, t_stack *b)
+{
+	if (checker(a) == -1)
+	{
+		if (a->size == 1)
+			return ;
+		else if (a->size == 2)
+			ra(a);
+		else if (a->size == 3)
+			sort_three(a, b);
+		else
+			sort_more(a, b);
+		checker(a);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/07 16:34:34 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/07 19:17:00 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	print_stacks(t_stack *a, t_stack *b)
 {
-	//for (int j = 0; j < a->size; j++)
-		//printf("%d\n", a->stack[j]);
-	int i;
+	int	i;
 
 	i = a->size;
 	printf("\n|------------------------------------------|\n");
@@ -30,27 +28,26 @@ void	print_stacks(t_stack *a, t_stack *b)
 	printf("\n|------------------------------------------|\n\n");
 }
 
-//swap the first 2 elements at the top of a stack. Do nothing if there is only one or no elements)
 void	sa(t_stack *a)
 {
 	if (a->size > 1)
 		ft_swap(&a->stack[a->size - 1], &a->stack[a->size - 2]);
 	ft_putendl("sa");
 }
-//swap the first 2 elements at the top of a stack. Do nothing if there is only one or no elements)
+
 void	sb(t_stack *b)
 {
 	if (b->size > 1)
 		ft_swap(&b->stack[b->size - 1], &b->stack[b->size - 2]);
 	ft_putendl("sb");
 }
-// sa and sb at the same time.
+
 void	ss(t_stack *a, t_stack *b)
 {
 	sa(a);
 	sb(b);
 }
-// push a - take the first element at the top of b and put it at the top of a. Do nothing if a is empty.
+
 void	pa(t_stack *a, t_stack *b)
 {
 	if (b->size)
@@ -60,7 +57,7 @@ void	pa(t_stack *a, t_stack *b)
 	}
 	ft_putendl("pa");
 }
-// push b - take the first element at the top of a and put it at the top of b. Do nothing if a is empty.
+
 void	pb(t_stack *a, t_stack *b)
 {
 	if (a->size)
@@ -70,7 +67,7 @@ void	pb(t_stack *a, t_stack *b)
 	}
 	ft_putendl("pb");
 }
-// rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
+
 void	ra(t_stack *a)
 {
 	int		i;
@@ -86,7 +83,7 @@ void	ra(t_stack *a)
 	}
 	ft_putendl("ra");
 }
-// rotate b - shift up all elements of stack b by 1. The first element becomes the last one.
+
 void	rb(t_stack *b)
 {
 	int		i;
@@ -102,13 +99,13 @@ void	rb(t_stack *b)
 	}
 	ft_putendl("rb");
 }
-// ra and rb at the same time.
+
 void	rr(t_stack *a, t_stack *b)
 {
 	ra(a);
 	rb(b);
 }
-// reverse rotate a - shift down all elements of stack a by 1. The last element becomes the first one.
+
 void	rra(t_stack *a)
 {
 	int		i;
@@ -124,7 +121,7 @@ void	rra(t_stack *a)
 	}
 	ft_putendl("rra");
 }
-// reverse rotate b - shift down all elements of stack b by 1. The last element becomes the first one.
+
 void	rrb(t_stack *b)
 {
 	int		i;
@@ -140,7 +137,7 @@ void	rrb(t_stack *b)
 	}
 	ft_putendl("rrb");
 }
-// rra and rrb at the same time.
+
 void	rrr(t_stack *a, t_stack *b)
 {
 	rra(a);
@@ -164,7 +161,7 @@ int	convert_stack(t_stack *a, long *tmp_stack)
 		{
 			if (old_tmp == -1 || tmp_stack[j] < tmp_stack[old_tmp])
 				if (tmp == -1 || tmp_stack[j] > tmp_stack[tmp])
-						tmp = j;
+					tmp = j;
 		}
 		if (tmp == -1)
 			return (-1);
@@ -175,6 +172,20 @@ int	convert_stack(t_stack *a, long *tmp_stack)
 	return (0);
 }
 
+int	ft_is_number(char *number)
+{
+	int	i;
+
+	i = 0;
+	while (number[i])
+	{
+		if (!ft_isdigit(number[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	init_stack(char **list, long *tmp_stack, t_stack *a)
 {
 	int	i;
@@ -182,8 +193,8 @@ int	init_stack(char **list, long *tmp_stack, t_stack *a)
 	i = 0;
 	while (i < a->size)
 	{
-	//	if (!ft_is_number(list[i]))
-	//		return (0);
+		if (!ft_is_number(list[a->size - i]))
+			return (-1);
 		tmp_stack[i] = atol(list[a->size - i]);
 		if (tmp_stack[i] < INT_MIN || tmp_stack[i] > INT_MAX)
 			return (-1);
@@ -222,8 +233,8 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 
 int	main(int argc, char **argv)
 {
-	t_stack a;
-	t_stack b;
+	t_stack	a;
+	t_stack	b;
 	int		error;
 
 	error = 1;
@@ -231,9 +242,7 @@ int	main(int argc, char **argv)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{
-			//print_stacks(&a, &b);
 			push_swap(&a, &b);
-			//print_stacks(&a, &b);
 			error = 0;
 		}
 	}

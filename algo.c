@@ -6,17 +6,15 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 16:32:04 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/07 18:53:50 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/07 19:00:34 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// 3 2 1
-
 int	checker(t_stack *a)
 {
-	int i;
+	int	i;
 
 	i = a->size;
 	while (--i)
@@ -24,7 +22,6 @@ int	checker(t_stack *a)
 		if (a->stack[i] > a->stack[i - 1])
 			return (-1);
 	}
-	//printf("\nSuccess !\n");
 	return (0);
 }
 
@@ -32,8 +29,8 @@ void	push_a(t_stack *a, t_stack *b)
 {
 	int	rb_gap;
 	int	rrb_gap;
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = b->size;
 	while (j--)
@@ -71,14 +68,6 @@ void	push_b(t_stack *a, t_stack *b, int ra_gap, int rra_gap)
 	pb(a, b);
 }
 
-/*
-1 0 2
-1 2 0
-0 2 1
-2 1 0
-2 0 1
-*/
-
 void	sort_three(t_stack *a)
 {
 	if (a->stack[1] < a->stack[2] && a->stack[0] > a->stack[2])
@@ -101,8 +90,8 @@ void	sort_three(t_stack *a)
 
 void	sort_four(t_stack *a, t_stack *b)
 {
-	int ra_gap;
-	int rra_gap;
+	int	ra_gap;
+	int	rra_gap;
 	int	i;
 
 	i = 0;
@@ -120,8 +109,8 @@ void	sort_four(t_stack *a, t_stack *b)
 
 void	sort_five(t_stack *a, t_stack *b)
 {
-	int ra_gap;
-	int rra_gap;
+	int	ra_gap;
+	int	rra_gap;
 	int	i;
 
 	i = 0;
@@ -146,12 +135,13 @@ void	sort_five(t_stack *a, t_stack *b)
 	pa(a, b);
 	pa(a, b);
 }
+
 void	sort_more(t_stack *a, t_stack *b)
 {
-	int ra_gap;
-	int rra_gap;
-	int i;
-	int j;
+	int	ra_gap;
+	int	rra_gap;
+	int	i;
+	int	j;
 	int	current_block;
 
 	j = 0;

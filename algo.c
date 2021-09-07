@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 16:32:04 by bperez            #+#    #+#             */
-/*   Updated: 2021/06/25 20:43:35 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/07 18:53:50 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	checker(t_stack *a)
 		if (a->stack[i] > a->stack[i - 1])
 			return (-1);
 	}
-	printf("\nSuccess !\n");
+	//printf("\nSuccess !\n");
 	return (0);
 }
 
@@ -79,7 +79,7 @@ void	push_b(t_stack *a, t_stack *b, int ra_gap, int rra_gap)
 2 0 1
 */
 
-void	sort_three(t_stack *a, t_stack *b)
+void	sort_three(t_stack *a)
 {
 	if (a->stack[1] < a->stack[2] && a->stack[0] > a->stack[2])
 		sa(a);
@@ -99,6 +99,53 @@ void	sort_three(t_stack *a, t_stack *b)
 		ra(a);
 }
 
+void	sort_four(t_stack *a, t_stack *b)
+{
+	int ra_gap;
+	int rra_gap;
+	int	i;
+
+	i = 0;
+	while (a->stack[i] != 0)
+		i++;
+	rra_gap = i;
+	i = 0;
+	while (a->stack[a->size - i - 1] != 0)
+		i++;
+	ra_gap = i;
+	push_b(a, b, ra_gap, rra_gap);
+	sort_three(a);
+	pa(a, b);
+}
+
+void	sort_five(t_stack *a, t_stack *b)
+{
+	int ra_gap;
+	int rra_gap;
+	int	i;
+
+	i = 0;
+	while (a->stack[i] != 0)
+		i++;
+	rra_gap = i;
+	i = 0;
+	while (a->stack[a->size - i - 1] != 0)
+		i++;
+	ra_gap = i;
+	push_b(a, b, ra_gap, rra_gap);
+	i = 0;
+	while (a->stack[i] != 0)
+		i++;
+	rra_gap = i;
+	i = 0;
+	while (a->stack[a->size - i - 1] != 0)
+		i++;
+	ra_gap = i;
+	push_b(a, b, ra_gap, rra_gap);
+	sort_three(a);
+	pa(a, b);
+	pa(a, b);
+}
 void	sort_more(t_stack *a, t_stack *b)
 {
 	int ra_gap;
@@ -131,14 +178,23 @@ void	push_swap(t_stack *a, t_stack *b)
 {
 	if (checker(a) == -1)
 	{
-		if (a->size == 1)
-			return ;
-		else if (a->size == 2)
+		if (a->size == 2)
 			ra(a);
 		else if (a->size == 3)
-			sort_three(a, b);
+			sort_three(a);
+		else if (a->size == 4)
+			sort_four(a, b);
+		else if (a->size == 5)
+			sort_five(a, b);
 		else
+		{
+			if (a->size < 20)
+				a->block_size = 2;
+			else if (a->size < 500)
+				a->block_size = 20;
+			else
+				a->block_size = 35;
 			sort_more(a, b);
-		checker(a);
+		}
 	}
 }

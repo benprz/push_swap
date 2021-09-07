@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/06/25 20:02:21 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/07 16:34:34 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,9 +231,9 @@ int	main(int argc, char **argv)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{
-			print_stacks(&a, &b);
+			//print_stacks(&a, &b);
 			push_swap(&a, &b);
-			print_stacks(&a, &b);
+			//print_stacks(&a, &b);
 			error = 0;
 		}
 	}

@@ -23,7 +23,7 @@ ARGS = 8 2 1 18272 62 71 9 29 87 65 10 27 872 762 12 37 28 198 26 73 88
 
 .PHONY : all clean fclean re $(LIBFT_DIR) exec
 
-all: $(LIBFT_DIR) $(NAME) exec
+all: $(LIBFT_DIR) $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_DIR)libft.a
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_INC) -I $(INC_DIR) -lm

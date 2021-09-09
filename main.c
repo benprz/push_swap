@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/07 19:17:00 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/09 19:25:27 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,20 +170,6 @@ int	convert_stack(t_stack *a, long *tmp_stack)
 	}
 	free(tmp_stack);
 	return (0);
-}
-
-int	ft_is_number(char *number)
-{
-	int	i;
-
-	i = 0;
-	while (number[i])
-	{
-		if (!ft_isdigit(number[i]))
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	init_stack(char **list, long *tmp_stack, t_stack *a)

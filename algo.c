@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 16:32:04 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/07 19:00:34 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/09 19:25:27 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,25 @@ void	push_b(t_stack *a, t_stack *b, int ra_gap, int rra_gap)
 
 void	sort_three(t_stack *a)
 {
-	if (a->stack[1] < a->stack[2] && a->stack[0] > a->stack[2])
-		sa(a);
-	else if (a->stack[1] > a->stack[2] && a->stack[0] < a->stack[2])
-		rra(a);
-	else if (a->stack[1] > a->stack[2] && a->stack[1] > a->stack[2])
+	if (checker(a) == -1)
 	{
-		rra(a);
-		sa(a);
+		if (a->stack[1] < a->stack[2] && a->stack[0] > a->stack[2])
+			sa(a);
+		else if (a->stack[1] > a->stack[2] && a->stack[0] < a->stack[2])
+			rra(a);
+		else if (a->stack[1] > a->stack[2] && a->stack[1] > a->stack[2])
+		{
+			rra(a);
+			sa(a);
+		}
+		else if (a->stack[2] > a->stack[1] && a->stack[0] < a->stack[1])
+		{
+			ra(a);
+			sa(a);
+		}
+		else if (a->stack[2] > a->stack[0] && a->stack[1] < a->stack[0])
+			ra(a);
 	}
-	else if (a->stack[2] > a->stack[1] && a->stack[0] < a->stack[1])
-	{
-		ra(a);
-		sa(a);
-	}
-	else if (a->stack[2] > a->stack[0] && a->stack[1] < a->stack[0])
-		ra(a);
 }
 
 void	sort_four(t_stack *a, t_stack *b)
@@ -97,7 +100,7 @@ void	sort_four(t_stack *a, t_stack *b)
 	i = 0;
 	while (a->stack[i] != 0)
 		i++;
-	rra_gap = i;
+	rra_gap = i + 1;
 	i = 0;
 	while (a->stack[a->size - i - 1] != 0)
 		i++;
@@ -116,18 +119,18 @@ void	sort_five(t_stack *a, t_stack *b)
 	i = 0;
 	while (a->stack[i] != 0)
 		i++;
-	rra_gap = i;
+	rra_gap = i + 1;
 	i = 0;
 	while (a->stack[a->size - i - 1] != 0)
 		i++;
 	ra_gap = i;
 	push_b(a, b, ra_gap, rra_gap);
 	i = 0;
-	while (a->stack[i] != 0)
+	while (a->stack[i] != 1)
 		i++;
-	rra_gap = i;
+	rra_gap = i + 1;
 	i = 0;
-	while (a->stack[a->size - i - 1] != 0)
+	while (a->stack[a->size - i - 1] != 1)
 		i++;
 	ra_gap = i;
 	push_b(a, b, ra_gap, rra_gap);

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/09 19:25:27 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/09 20:02:01 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,122 +26,6 @@ void	print_stacks(t_stack *a, t_stack *b)
 	while (i--)
 		printf("%ld ", b->stack[i]);
 	printf("\n|------------------------------------------|\n\n");
-}
-
-void	sa(t_stack *a)
-{
-	if (a->size > 1)
-		ft_swap(&a->stack[a->size - 1], &a->stack[a->size - 2]);
-	ft_putendl("sa");
-}
-
-void	sb(t_stack *b)
-{
-	if (b->size > 1)
-		ft_swap(&b->stack[b->size - 1], &b->stack[b->size - 2]);
-	ft_putendl("sb");
-}
-
-void	ss(t_stack *a, t_stack *b)
-{
-	sa(a);
-	sb(b);
-}
-
-void	pa(t_stack *a, t_stack *b)
-{
-	if (b->size)
-	{
-		a->stack[a->size] = b->stack[--b->size];
-		a->size++;
-	}
-	ft_putendl("pa");
-}
-
-void	pb(t_stack *a, t_stack *b)
-{
-	if (a->size)
-	{
-		b->stack[b->size] = a->stack[--a->size];
-		b->size++;
-	}
-	ft_putendl("pb");
-}
-
-void	ra(t_stack *a)
-{
-	int		i;
-	long	tmp;
-
-	if (a->size > 1)
-	{
-		tmp = a->stack[0];
-		a->stack[0] = a->stack[a->size - 1];
-		i = 0;
-		while (i++ < a->size)
-			ft_swap(&tmp, &a->stack[i]);
-	}
-	ft_putendl("ra");
-}
-
-void	rb(t_stack *b)
-{
-	int		i;
-	long	tmp;
-
-	if (b->size > 1)
-	{
-		tmp = b->stack[0];
-		b->stack[0] = b->stack[b->size - 1];
-		i = 0;
-		while (i++ < b->size)
-			ft_swap(&tmp, &b->stack[i]);
-	}
-	ft_putendl("rb");
-}
-
-void	rr(t_stack *a, t_stack *b)
-{
-	ra(a);
-	rb(b);
-}
-
-void	rra(t_stack *a)
-{
-	int		i;
-	long	tmp;
-
-	if (a->size > 1)
-	{
-		tmp = a->stack[a->size - 1];
-		a->stack[a->size - 1] = a->stack[0];
-		i = a->size - 1;
-		while (i-- > 0)
-			ft_swap(&tmp, &a->stack[i]);
-	}
-	ft_putendl("rra");
-}
-
-void	rrb(t_stack *b)
-{
-	int		i;
-	long	tmp;
-
-	if (b->size > 1)
-	{
-		tmp = b->stack[b->size - 1];
-		b->stack[b->size - 1] = b->stack[0];
-		i = b->size - 1;
-		while (i-- > 0)
-			ft_swap(&tmp, &b->stack[i]);
-	}
-	ft_putendl("rrb");
-}
-
-void	rrr(t_stack *a, t_stack *b)
-{
-	rra(a);
-	rrb(b);
 }
 
 int	convert_stack(t_stack *a, long *tmp_stack)
@@ -222,13 +106,19 @@ int	main(int argc, char **argv)
 	t_stack	a;
 	t_stack	b;
 	int		error;
+	long	*a_stack;
+	long	*b_stack;
 
 	error = 1;
 	if (argc-- >= 2)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{
+			a_stack = a.stack;
+			b_stack = b.stack;
 			push_swap(&a, &b);
+			free(a_stack);
+			free(b_stack);
 			error = 0;
 		}
 	}

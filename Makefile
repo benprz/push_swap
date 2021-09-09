@@ -1,14 +1,16 @@
-MAKEFLAGS += --silent
+#MAKEFLAGS += --silent
 
 NAME = push_swap
 CC = gcc
-CFLAGS = -g #-Wall -Wextra #-Werror -Wpedantic 
+CFLAGS = -g -Wall -Wextra -Werror -Wpedantic 
 INC_DIR = includes/
 INC = push_swap.h
 
-SRC_DIR = ./
-SRC =	main.c\
-		algo.c
+SRC_DIR = src/
+SRC =	algo.c\
+		main.c\
+		stack_a.c\
+		stack_b.c
 
 LIBRARY_DIR = ./
 

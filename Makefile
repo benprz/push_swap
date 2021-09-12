@@ -7,8 +7,9 @@ INC_DIR = includes/
 INC = push_swap.h
 
 SRC_DIR = src/
-SRC =	algo.c\
-		main.c\
+SRC =	main.c\
+		push_swap.c\
+		push_swap2.c\
 		stack_a.c\
 		stack_b.c
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_b.c                                          :+:      :+:    :+:   */
+/*   stack_b2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 19:34:57 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/23 21:25:25 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 18:32:05 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 
 void	sb(t_stack *b)
 {
+	long	c;
+
 	if (b->size > 1)
-		ft_swap(&b->stack[b->size - 1], &b->stack[b->size - 2]);
+	{
+		c = b->stack[b->size - 1];
+		b->stack[b->size - 1] = b->stack[b->size - 2];
+		b->stack[b->size - 2] = c;
+	}
 	//ft_putendl("sb");
 }
 
@@ -24,7 +30,8 @@ void	pb(t_stack *a, t_stack *b)
 {
 	if (a->size)
 	{
-		b->stack[b->size] = a->stack[--a->size];
+		a->size--;
+		b->stack[b->size] = a->stack[a->size];
 		b->size++;
 	}
 	//ft_putendl("pb");
@@ -34,6 +41,7 @@ void	rb(t_stack *b)
 {
 	int		i;
 	long	tmp;
+	long	c;
 
 	if (b->size > 1)
 	{
@@ -41,7 +49,11 @@ void	rb(t_stack *b)
 		b->stack[0] = b->stack[b->size - 1];
 		i = 0;
 		while (i++ < b->size)
-			ft_swap(&tmp, &b->stack[i]);
+		{
+			c = tmp;
+			tmp = b->stack[i];
+			b->stack[i] = c;
+		}
 	}
 	//ft_putendl("rb");
 }
@@ -50,6 +62,7 @@ void	rrb(t_stack *b)
 {
 	int		i;
 	long	tmp;
+	long	c;
 
 	if (b->size > 1)
 	{
@@ -57,7 +70,11 @@ void	rrb(t_stack *b)
 		b->stack[b->size - 1] = b->stack[0];
 		i = b->size - 1;
 		while (i-- > 0)
-			ft_swap(&tmp, &b->stack[i]);
+		{
+			c = tmp;
+			tmp = b->stack[i];
+			b->stack[i] = c;
+		}
 	}
 	//ft_putendl("rrb");
 }

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/09 20:02:01 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/24 01:28:44 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@ void	print_stacks(t_stack *a, t_stack *b)
 	printf("\n|------------------------------------------|\n\n");
 }
 
+void	print_stacks_address(t_stack *a, t_stack *b)
+{
+	int	i;
+
+	i = a->size;
+	printf("\n|------------------------------------------|\n");
+	printf("| a %p -> ", &a->stack);
+	while (i--)
+		printf("%p ", &a->stack[i]);
+	i = b->size;
+	printf("\n| b %p -> ", &b->stack);
+	while (i--)
+		printf("%p ", &b->stack[i]);
+	printf("\n|------------------------------------------|\n\n");
+}
+
+/*
 int	convert_stack(t_stack *a, long *tmp_stack)
 {
 	int		i;
@@ -81,13 +98,14 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	ft_bzero(b, sizeof(t_stack));
 	a->stack = malloc(sizeof(long) * size);
 	b->stack = malloc(sizeof(long) * size);
+	ft_bzero(a->stack, sizeof(long) * size);
+	ft_bzero(b->stack, sizeof(long) * size);
 	if (a->stack && b->stack)
 	{
 		tmp_stack = malloc(sizeof(long) * size);
 		if (tmp_stack)
 		{
 			a->size = size;
-			a->block_size = a->size / 2;
 			if (!init_stack(list, tmp_stack, a))
 			{
 				if (!convert_stack(a, tmp_stack))
@@ -100,29 +118,113 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	}
 	return (-1);
 }
+*/
+
+int	convert_stack(t_stack *a)
+{
+	int i;
+	int j;
+	int	k;
+	int	current_index;
+
+	i = 0;
+	while (i < a->size)
+	{
+		j = 0;
+		k = 0;
+		while (a->stack[k] < i)
+			k++;
+		current_index = k;
+		while (j < a->size)
+		{
+			if ((a->stack[j] < 0 || a->stack[j] >= i) && a->stack[j] < a->stack[current_index])
+				current_index = j;
+			j++;
+		}
+		a->stack[current_index] = i;
+		//printf("%ld %d\n", a->stack[current_index], current_index);
+		i++;
+	}
+	return (0);
+}
+
+int	init_stack(char **list, t_stack *a)
+{
+	int	i;
+
+	i = 0;
+	while (i < a->size)
+	{
+		//printf("list[%d] = %s\n", a->size - i, list[a->size - i]);
+		if (!ft_is_number(list[a->size - i]))
+			return (-1);
+		a->stack[i] = atol(list[a->size - i]);
+		if (a->stack[i] < INT_MIN || a->stack[i] > INT_MAX)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
+{
+	ft_bzero(a, sizeof(t_stack));
+	ft_bzero(b, sizeof(t_stack));
+	a->stack = malloc(sizeof(long) * size);
+	b->stack = malloc(sizeof(long) * size);
+	ft_bzero(a->stack, sizeof(long) * size);
+	ft_bzero(b->stack, sizeof(long) * size);
+	if (a->stack && b->stack)
+	{
+		a->size = size;
+		if (!init_stack(list, a))
+		{
+			if (!convert_stack(a))
+				return (0);
+		}
+		free(a->stack);
+		free(b->stack);
+	}
+	return (-1);
+}
+
+void	debug_test(t_stack *a, t_stack *b, int argc)
+{
+	ft_bzero(a, sizeof(t_stack));
+	ft_bzero(b, sizeof(t_stack));
+	a->size = argc - 1;
+	a->stack = malloc(sizeof(long) * a->size);
+	b->stack = malloc(sizeof(long) * a->size);
+	ft_bzero(a->stack, sizeof(long) * a->size);
+	ft_bzero(a->stack, sizeof(long) * a->size);
+	int i = a->size;
+	while (i--)
+		a->stack[i] = i;
+}
 
 int	main(int argc, char **argv)
 {
 	t_stack	a;
 	t_stack	b;
 	int		error;
-	long	*a_stack;
-	long	*b_stack;
 
 	error = 1;
 	if (argc-- >= 2)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{
-			a_stack = a.stack;
-			b_stack = b.stack;
+			//debug_test(&a, &b, argc);
+			//print_stacks_address(&a, &b);
+			//print_stacks(&a, &b);
 			push_swap(&a, &b);
-			free(a_stack);
-			free(b_stack);
+			//print_stacks(&a, &b);
+			//print_stacks_address(&a, &b);
+			free(a.stack);
+			free(b.stack);
 			error = 0;
 		}
 	}
-	if (error)
-		printf("Error\n");
+	//if (error)
+		//printf("Error\n");
 	return (0);
 }

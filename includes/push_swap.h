@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 17:13:57 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/12 20:07:36 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 15:03:58 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct s_stack
 {
 	long *stack;
-	int start;
 	int size;
 	int	block_size;
 } t_stack;

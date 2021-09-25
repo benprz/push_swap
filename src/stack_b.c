@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 19:34:57 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/23 21:25:25 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/25 16:25:36 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sb(t_stack *b)
 {
 	if (b->size > 1)
 		ft_swap(&b->stack[b->size - 1], &b->stack[b->size - 2]);
-	//ft_putendl("sb");
+	ft_putendl("sb");
 }
 
 void	pb(t_stack *a, t_stack *b)
@@ -27,7 +27,7 @@ void	pb(t_stack *a, t_stack *b)
 		b->stack[b->size] = a->stack[--a->size];
 		b->size++;
 	}
-	//ft_putendl("pb");
+	ft_putendl("pb");
 }
 
 void	rb(t_stack *b)
@@ -43,7 +43,7 @@ void	rb(t_stack *b)
 		while (i++ < b->size)
 			ft_swap(&tmp, &b->stack[i]);
 	}
-	//ft_putendl("rb");
+	ft_putendl("rb");
 }
 
 void	rrb(t_stack *b)
@@ -59,5 +59,5 @@ void	rrb(t_stack *b)
 		while (i-- > 0)
 			ft_swap(&tmp, &b->stack[i]);
 	}
-	//ft_putendl("rrb");
+	ft_putendl("rrb");
 }

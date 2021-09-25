@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 19:34:25 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/23 21:25:25 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/25 16:25:23 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sa(t_stack *a)
 {
 	if (a->size > 1)
 		ft_swap(&a->stack[a->size - 1], &a->stack[a->size - 2]);
-	//ft_putendl("sa");
+	ft_putendl("sa");
 }
 
 void	pa(t_stack *a, t_stack *b)
@@ -27,7 +27,7 @@ void	pa(t_stack *a, t_stack *b)
 		a->stack[a->size] = b->stack[--b->size];
 		a->size++;
 	}
-	//ft_putendl("pa");
+	ft_putendl("pa");
 }
 
 void	ra(t_stack *a)
@@ -43,7 +43,7 @@ void	ra(t_stack *a)
 		while (i++ < a->size)
 			ft_swap(&tmp, &a->stack[i]);
 	}
-	//ft_putendl("ra");
+	ft_putendl("ra");
 }
 
 void	rra(t_stack *a)
@@ -59,5 +59,5 @@ void	rra(t_stack *a)
 		while (i-- > 0)
 			ft_swap(&tmp, &a->stack[i]);
 	}
-	//ft_putendl("rra");
+	ft_putendl("rra");
 }

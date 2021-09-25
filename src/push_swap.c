@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 16:32:04 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/22 19:15:41 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/25 16:26:54 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,18 +115,14 @@ void	push_swap(t_stack *a, t_stack *b)
 {
 	if (checker(a) == -1)
 	{
-		a->block_size = 2;
 		if (a->size == 2)
 			sa(a);
 		else if (a->size == 3)
-			sort_more(a, b);
-			//sort_three(a);
+			sort_three(a);
 		else if (a->size == 4)
-			sort_more(a, b);
-			//sort_four(a, b);
+			sort_four(a, b);
 		else if (a->size == 5)
-			sort_more(a, b);
-			//sort_five(a, b);
+			sort_five(a, b);
 		else
 		{
 			if (a->size < 20)

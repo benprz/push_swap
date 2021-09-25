@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/24 01:28:44 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/25 16:26:04 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	print_stacks_address(t_stack *a, t_stack *b)
 	printf("\n|------------------------------------------|\n\n");
 }
 
-/*
 int	convert_stack(t_stack *a, long *tmp_stack)
 {
 	int		i;
@@ -69,10 +68,36 @@ int	convert_stack(t_stack *a, long *tmp_stack)
 		a->stack[tmp] = i;
 		old_tmp = tmp;
 	}
-	free(tmp_stack);
 	return (0);
 }
+/*
+int convert_stack(t_stack *a, long *tmp_stack)
+{
+	int	i;
+	int	j;
+	int	tmp;
 
+	i = 0;
+	while (i < a->size)
+	{
+		j = 0;
+		tmp = 0;
+		while (tmp_stack[tmp] == -1)
+			tmp++;
+		while (j < a->size)
+		{
+			if (tmp_stack[j] != -1 && tmp_stack[j] < tmp_stack[tmp])
+				tmp = j;
+			j++;
+		}
+		a->stack[tmp] = i;
+		tmp_stack[tmp] = -1;
+		i++;
+	}
+	return (0);
+}
+*/
+/*
 int	init_stack(char **list, long *tmp_stack, t_stack *a)
 {
 	int	i;
@@ -103,6 +128,7 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	if (a->stack && b->stack)
 	{
 		tmp_stack = malloc(sizeof(long) * size);
+		ft_bzero(tmp_stack, sizeof(long) * size);
 		if (tmp_stack)
 		{
 			a->size = size;
@@ -120,46 +146,17 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 }
 */
 
-int	convert_stack(t_stack *a)
-{
-	int i;
-	int j;
-	int	k;
-	int	current_index;
-
-	i = 0;
-	while (i < a->size)
-	{
-		j = 0;
-		k = 0;
-		while (a->stack[k] < i)
-			k++;
-		current_index = k;
-		while (j < a->size)
-		{
-			if ((a->stack[j] < 0 || a->stack[j] >= i) && a->stack[j] < a->stack[current_index])
-				current_index = j;
-			j++;
-		}
-		a->stack[current_index] = i;
-		//printf("%ld %d\n", a->stack[current_index], current_index);
-		i++;
-	}
-	return (0);
-}
-
-int	init_stack(char **list, t_stack *a)
+int	init_stack(char **list, long *tmp_stack, t_stack *a)
 {
 	int	i;
 
 	i = 0;
 	while (i < a->size)
 	{
-		//printf("list[%d] = %s\n", a->size - i, list[a->size - i]);
 		if (!ft_is_number(list[a->size - i]))
 			return (-1);
-		a->stack[i] = atol(list[a->size - i]);
-		if (a->stack[i] < INT_MIN || a->stack[i] > INT_MAX)
+		tmp_stack[i] = atol(list[a->size - i]);
+		if (tmp_stack[i] < INT_MIN || tmp_stack[i] > INT_MAX)
 			return (-1);
 		i++;
 	}
@@ -177,16 +174,47 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	if (a->stack && b->stack)
 	{
 		a->size = size;
-		if (!init_stack(list, a))
+		if (!init_stack(list, b->stack, a))
 		{
-			if (!convert_stack(a))
+			if (!convert_stack(a, b->stack))
+			{
+				ft_bzero(b->stack, sizeof(long) * a->size);
 				return (0);
+			}
 		}
 		free(a->stack);
 		free(b->stack);
 	}
 	return (-1);
 }
+
+/*
+int	convert_stack(t_stack *a)
+{
+	int i;
+	int j;
+	int	current_index;
+
+	i = 0;
+	while (i < a->size)
+	{
+		j = 0;
+		current_index = 0;
+		while (j < a->size)
+		{
+			//if ((a->stack[j] < 0 || a->stack[j] >= i) && a->stack[j] < a->stack[current_index])
+				//current_index = j;
+			if ((a->stack[j] < 0 || a->stack[j] >= i) && a->stack[j] < a->stack[current_index])
+				current_index = j;
+			j++;
+		}
+		a->stack[current_index] = i;
+		//printf("%ld %d\n", a->stack[current_index], current_index);
+		i++;
+	}
+	return (0);
+}
+*/
 
 void	debug_test(t_stack *a, t_stack *b, int argc)
 {

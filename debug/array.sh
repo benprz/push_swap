@@ -20,10 +20,10 @@ do
 	echo "\n************ $j ***************\n"
 	i=0
 	a=$j
-	while [ "$i" -lt "100" ]
+	while [ "$i" -lt "1" ]
 	do
 		generate_array
-		../push_swap $ARGS
+		leaks -atExit -- ../push_swap $ARGS
 		((i=i+1))
 	done
 	echo "\n*******************************\n\n\n"

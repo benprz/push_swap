@@ -6,25 +6,25 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 17:13:57 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/22 15:03:58 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/25 16:42:51 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "libft.h"
+# include "libft.h"
 
-#include <limits.h>
-#include <stdlib.h>
-#include <stdio.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 typedef struct s_stack
 {
-	long *stack;
-	int size;
-	int	block_size;
-} t_stack;
+	long	*stack;
+	int		size;
+	int		block_size;
+}	t_stack;
 
 void	push_swap(t_stack *a, t_stack *b);
 int		checker(t_stack *a);

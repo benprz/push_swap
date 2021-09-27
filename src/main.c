@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/25 16:45:17 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/28 00:43:19 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	main(int argc, char **argv)
 			error = 0;
 		}
 	}
-	if (error)
-		printf("Error\n");
+	//if (error)
+		//printf("Error\n");
 	return (0);
 }

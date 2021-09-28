@@ -10,8 +10,8 @@ SRC_DIR = src/
 SRC =	main.c\
 		push_swap.c\
 		push_swap2.c\
-		stack_a2.c\
-		stack_b2.c
+		stack_a.c\
+		stack_b.c
 
 LIBRARY_DIR = ./
 

@@ -40,7 +40,7 @@ void	rb(t_stack *b)
 		tmp = b->stack[0];
 		b->stack[0] = b->stack[b->size - 1];
 		i = 0;
-		while (i++ < b->size)
+		while (i++ < b->size - 1)
 			ft_swap(&tmp, &b->stack[i]);
 	}
 	ft_putendl("rb");
@@ -56,8 +56,11 @@ void	rrb(t_stack *b)
 		tmp = b->stack[b->size - 1];
 		b->stack[b->size - 1] = b->stack[0];
 		i = b->size - 1;
-		while (i-- > 0)
-			ft_swap(&tmp, &b->stack[i]);
+		while (i > 0)
+		{
+			ft_swap(&tmp, &b->stack[i - 1]);
+			i--;
+		}
 	}
 	ft_putendl("rrb");
 }

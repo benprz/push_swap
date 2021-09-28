@@ -40,7 +40,7 @@ void	ra(t_stack *a)
 		tmp = a->stack[0];
 		a->stack[0] = a->stack[a->size - 1];
 		i = 0;
-		while (i++ < a->size)
+		while (i++ < a->size -1)
 			ft_swap(&tmp, &a->stack[i]);
 	}
 	ft_putendl("ra");
@@ -56,8 +56,11 @@ void	rra(t_stack *a)
 		tmp = a->stack[a->size - 1];
 		a->stack[a->size - 1] = a->stack[0];
 		i = a->size - 1;
-		while (i-- > 0)
-			ft_swap(&tmp, &a->stack[i]);
+		while (i > 0)
+		{
+			ft_swap(&tmp, &a->stack[i - 1]);
+			i--;
+		}
 	}
 	ft_putendl("rra");
 }

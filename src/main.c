@@ -12,22 +12,6 @@
 
 #include "push_swap.h"
 
-void	print_stacks_address(t_stack *a, t_stack *b)
-{
-	int	i;
-
-	i = a->size + 1;
-	printf("\n|------------------------------------------|\n");
-	printf("| %p a -> ", a->stack);
-	while (i--)
-		printf("%d.%p ", i, &a->stack[i]);
-	i = b->size;
-	printf("\n| %p b -> ", b->stack);
-	while (i--)
-		printf("%p ", &b->stack[i]);
-	printf("\n|------------------------------------------|\n\n");
-}
-
 void	print_stacks(t_stack *a, t_stack *b)
 {
 	int	i;
@@ -88,23 +72,6 @@ int	init_stack(char **list, long *tmp_stack, t_stack *a)
 	return (0);
 }
 
-int	init_stack2(char **list, long *tmp_stack, t_stack *a)
-{
-	int	i;
-
-	i = 0;
-	while (i < a->size)
-	{
-		if (!ft_is_number(list[a->size - i]))
-			return (-1);
-		a->stack[i] = atol(list[a->size - i]);
-		if (a->stack[i] < INT_MIN || a->stack[i] > INT_MAX)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
-
 int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 {
 	ft_bzero(a, sizeof(t_stack));
@@ -116,7 +83,6 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	if (a->stack && b->stack)
 	{
 		a->size = size;
-		//printf("a->size = %d\n\n", a->size);
 		if (!init_stack(list, b->stack, a))
 		{
 			if (!convert_stack(a, b->stack))
@@ -132,15 +98,6 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 	return (-1);
 }
 
-void	debug_tests(t_stack *a, t_stack *b)
-{
-	pb(a, b);
-	pb(a, b);
-	rb(b);
-	pa(a, b);
-	pa(a, b);
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	a;
@@ -152,18 +109,13 @@ int	main(int argc, char **argv)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{
-			//print_stacks(&a, &b);
-			//print_stacks_address(&a, &b);
-			//debug_tests(&a, &b);
-			//print_stacks_address(&a, &b);
 			push_swap(&a, &b);
-			//print_stacks(&a, &b);
 			free(a.stack);
 			free(b.stack);
 			error = 0;
 		}
 	}
-	//if (error)
-		//printf("Error\n");
+	if (error)
+		printf("Error\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/30 08:50:15 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 10:26:33 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int	main(int argc, char **argv)
 	int		error;
 
 	error = 1;
-	if (argc-- >= 2)
+	if (argc == 1)
+		error = 0;
+	else if (argc-- >= 2)
 	{
 		if (!init_stacks(argv, &a, &b, argc))
 		{

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/30 10:26:33 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 10:45:45 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	init_stacks(char **list, t_stack *a, t_stack *b, int size)
 				ft_bzero(b->stack, sizeof(long) * a->size);
 				return (0);
 			}
-			return (0);
 		}
 		free(a->stack);
 		free(b->stack);

@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 16:32:04 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/25 16:26:54 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 08:54:00 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ void	push_swap(t_stack *a, t_stack *b)
 {
 	if (checker(a) == -1)
 	{
+		a->block_size = 2;
+		if (a->size < 100)
+			a->block_size = 10;
+		else if (a->size < 350)
+			a->block_size = 20;
+		else if (a->size < 400)
+			a->block_size = 30;
+		else if (a->size < 500)
+			a->block_size = 40;
+		else
+			a->block_size = 50;
 		if (a->size == 2)
 			sa(a);
 		else if (a->size == 3)
@@ -124,14 +135,6 @@ void	push_swap(t_stack *a, t_stack *b)
 		else if (a->size == 5)
 			sort_five(a, b);
 		else
-		{
-			if (a->size < 20)
-				a->block_size = 2;
-			else if (a->size < 500)
-				a->block_size = 20;
-			else
-				a->block_size = 35;
 			sort_more(a, b);
-		}
 	}
 }

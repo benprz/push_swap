@@ -15,15 +15,15 @@ generate_array()
 	done
 }
 
-for j in {0..1000}
+for j in {162..1000}
 do
 	echo "\n************ $j ***************\n"
 	i=0
 	a=$j
-	while [ "$i" -lt "10" ]
+	while [ "$i" -lt "1" ]
 	do
 		generate_array
-		../push_swap $ARGS | ../checker $ARGS
+		leaks -atExit -- ../push_swap $ARGS #| ../checker $ARGS
 		((i=i+1))
 	done
 	echo "\n*******************************\n\n\n"

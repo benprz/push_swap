@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 19:34:25 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/28 01:12:19 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 08:54:17 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ra(t_stack *a)
 		tmp = a->stack[0];
 		a->stack[0] = a->stack[a->size - 1];
 		i = 0;
-		while (i++ < a->size -1)
+		while (i++ < a->size - 1)
 			ft_swap(&tmp, &a->stack[i]);
 	}
 	ft_putendl("ra");

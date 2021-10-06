@@ -15,7 +15,7 @@ generate_array()
 	done
 }
 
-for j in {162..1000}
+for j in {1..1000}
 do
 	echo "\n************ $j ***************\n"
 	i=0

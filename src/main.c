@@ -6,7 +6,7 @@
 /*   By: bperez <bperez@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:51:15 by bperez            #+#    #+#             */
-/*   Updated: 2021/09/30 10:45:45 by bperez           ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:03:03 by bperez           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	init_stack(char **list, long *tmp_stack, t_stack *a)
 	{
 		if (!ft_is_number(list[a->size - i]))
 			return (-1);
-		tmp_stack[i] = atol(list[a->size - i]);
+		tmp_stack[i] = ft_atol(list[a->size - i]);
 		if (tmp_stack[i] < INT_MIN || tmp_stack[i] > INT_MAX)
 			return (-1);
 		i++;
@@ -117,6 +117,6 @@ int	main(int argc, char **argv)
 		}
 	}
 	if (error)
-		printf("Error\n");
+		ft_putendl("Error");
 	return (0);
 }
